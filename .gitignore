@@ -1,6 +1,35 @@
-# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-bin
-obj
-
-# mstest test results
-TestResults
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore folders Visual Studio
+obj/
+[Dd]ebug*/
+[Rr]elease*/
+dev*/
+App_Data*/
+Production*/
+Staging*/
+Log*/
+_ReSharper*/
+test*/
+[Bb]in/
+packages/
+#Ignore files build by Visual Studio
+*.obj
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.vsmdi
+*.[Rr]e[Ss]harper
+*.dotCover
