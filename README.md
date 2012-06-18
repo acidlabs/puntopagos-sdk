@@ -1,44 +1,44 @@
-h1.PuntoPagos-SDK
+<h1>PuntoPagos-SDK</h1>
 
 This development is in a very early stage, please use it at your own risk and feel free to improve it and send Pull Requests.
 
-h2. Installation
+<h2>Installation</h2>
 
 To install you must:
 1.- Attach the reference to the dll Acid.PuntoPagos.Sdk.dll
 2.- Configure this sdk by code or config file, view Configuration
 3.- Use.
 
-h2. Configuration
+<h2>Configuration</h2>
 
-h3. By Code
+<h3>By Code</h3>
 
 You can configure and use this SDK to create a new instance of the class PuntoPago and calling the following order independent methods:
 <pre>
-	var puntoPagoSdk = new PuntoPago().SetKey("Key").SetSecretCode("SecretCode").SetEnvironment(EnvironmentForPuntoPago.Sandbox).CreateTransaction();
+var puntoPagoSdk = new PuntoPago().SetKey("Key").SetSecretCode("SecretCode").SetEnvironment(EnvironmentForPuntoPago.Sandbox).CreateTransaction();
 </pre>
 
-h3. By Config file
+<h3>By Config file</h3>
 
 If you prefer, you can configure this Sdk by config file, addings this keys of AppSetting
 
 <pre>
-	<add key ="PuntoPago-Secret" value="YOU SECRET CODE"/>
+    <add key ="PuntoPago-Secret" value="YOU SECRET CODE"/>
     <add key ="PuntoPago-Key" value="YOU KEY" />
     <add key="PuntoPago-Environment" value="" /><!--Values: Sandbox or Production-->
 </pre>
 
-h2. Log
+<h2>Log</h2>
 
 By default this Sdk use Log4Net for logger, but you can set you favorite logs system, calling to SetLog method of class PuntoPago.
 You need extends ILog interface located in Acid.PuntoPagos.Sdk.Interfaces.ILog
 <pre>
-	var puntoPagoSdk = new PuntoPago().SetLog(you instance of log);
+var puntoPagoSdk = new PuntoPago().SetLog(you instance of log);
 </pre>
 
-h2. Sample Usage
+<h2>Sample Usage</h2>
 
-h3. Create Transaction
+<h3>Create Transaction</h3>
 <pre>
 
 	var puntoPago = new PuntoPago().CreateTransaction();
@@ -49,7 +49,7 @@ h3. Create Transaction
 	createTransactionDto.ProcessUrl
 </pre>
 
-h3. Notification Transaction
+<h3>Notification Transaction</h3>
 <pre>
 
 	var puntoPago = new PuntoPago().CreateTransaction();
@@ -63,7 +63,7 @@ h3. Notification Transaction
 	notificationTransactionDto.GenerateResponse();
 </pre>
 
-h3. Check Status Transaction
+<h3>Check Status Transaction</h3>
 <pre>
 
 	var puntoPago = new PuntoPago().CreateTransaction();
@@ -74,20 +74,20 @@ h3. Check Status Transaction
 	checkTransactionRequestDto.IsTransactionSuccessful();
 </pre>
 
-h2. Test Data
+<h2>Test Data</h2>
 
 |Gateway|Payload|Expected Result|
 |Transbank|Visa / 4051885600446623 / CVV: 123 / exp: any|Success|
 |Transbank|Mastercard / 5186059559590568 / CVV: 123 / exp: any|Failure|
 
-h1. TODO:
+<h1>TODO:</h1>
 
 * Create Nuget Package
 
-h2. Credits
+<h2>Credits</h2>
 
 Alejandro Labra
 
-h1. Special Thanks
+<h1>Special Thanks</h1>
 
 Thanks to dvinales for not suing us.
