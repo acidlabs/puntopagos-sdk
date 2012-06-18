@@ -6,7 +6,7 @@ This development is in a very early stage, please use it at your own risk and fe
 
 To install you must: <br />
 <ul>
-<li>Attach the reference to the dll Acid.PuntoPagos.Sdk.dll</li>
+<li>Install from <a href="http://nuget.org/packages/PuntoPagos-SDK">nuget</a> PM> Install-Package PuntoPagos-SDK</li>
 <li>Configure this sdk by code or config file, view <a href="https://github.com/alabras/PuntoPagos-SDK#configuration">Configuration</a></li>
 <li>Use.</li>
 </ul>
@@ -97,7 +97,6 @@ var puntoPagoSdk = new PuntoPago().SetLog(you instance of log);
 
 <h1>TODO</h1>
 <ul>
-<li>Create Nuget Package</li>
 <li>Create Wiki</li>
 </ul>
 
