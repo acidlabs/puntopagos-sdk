@@ -75,10 +75,23 @@ var puntoPagoSdk = new PuntoPago().SetLog(you instance of log);
 </pre>
 
 <h2>Test Data</h2>
-
-|Gateway|Payload|Expected Result|
-|Transbank|Visa / 4051885600446623 / CVV: 123 / exp: any|Success|
-|Transbank|Mastercard / 5186059559590568 / CVV: 123 / exp: any|Failure|
+<table>
+<tbody><tr>
+<td>Gateway</td>
+<td>Payload</td>
+<td>Expected Result</td>
+</tr>
+<tr>
+<td>Transbank</td>
+<td>Visa / 4051885600446623 / CVV: 123 / exp: any</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>Transbank</td>
+<td>Mastercard / 5186059559590568 / CVV: 123 / exp: any</td>
+<td>Failure</td>
+</tr>
+</tbody></table>
 
 <h1>TODO:</h1>
 
