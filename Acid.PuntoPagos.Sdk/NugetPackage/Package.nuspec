@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PuntoPagos-SDK</id>
+    <version>1.0.0</version>
+    <authors>alabra</authors>
+    <owners>alabra</owners>
+    <licenseUrl>https://github.com/alabras/PuntoPagos-SDK/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/alabras/PuntoPagos-SDK</projectUrl>
+    
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package description</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Sdk PuntoPagos</tags>
+    <dependencies>
+      <dependency id="ServiceStack.Text" version="3.8.3" />
+    </dependencies>
+  </metadata>
+</package>
