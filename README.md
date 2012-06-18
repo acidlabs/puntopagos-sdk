@@ -7,7 +7,7 @@ This development is in a very early stage, please use it at your own risk and fe
 To install you must: <br />
 <ul>
 <li>Attach the reference to the dll Acid.PuntoPagos.Sdk.dll</li>
-<li>Configure this sdk by code or config file, view <a href="https://github.com/alabras/PuntoPagos-SDK/master/README.md#configuration">Configuration</a></li>
+<li>Configure this sdk by code or config file, view <a href="https://github.com/alabras/PuntoPagos-SDK#configuration">Configuration</a></li>
 <li>Use.</li>
 </ul>
 
