@@ -4,10 +4,12 @@ This development is in a very early stage, please use it at your own risk and fe
 
 <h2>Installation</h2>
 
-To install you must:
-1.- Attach the reference to the dll Acid.PuntoPagos.Sdk.dll
-2.- Configure this sdk by code or config file, view Configuration
-3.- Use.
+To install you must: <br />
+<ul>
+<li>Attach the reference to the dll Acid.PuntoPagos.Sdk.dll</li>
+<li>Configure this sdk by code or config file, view <a href="https://github.com/alabras/PuntoPagos-SDK/master/README.md#configuration">Configuration</a></li>
+<li>Use.</li>
+</ul>
 
 <h2>Configuration</h2>
 
@@ -23,9 +25,9 @@ var puntoPagoSdk = new PuntoPago().SetKey("Key").SetSecretCode("SecretCode").Set
 If you prefer, you can configure this Sdk by config file, addings this keys of AppSetting
 
 <pre>
-    <add key ="PuntoPago-Secret" value="YOU SECRET CODE"/>
-    <add key ="PuntoPago-Key" value="YOU KEY" />
-    <add key="PuntoPago-Environment" value="" /><!--Values: Sandbox or Production-->
+    &lt;add key ="PuntoPago-Secret" value="YOU SECRET CODE" /&gt;
+    &lt;add key ="PuntoPago-Key" value="YOU KEY" /&gt;
+    &lt;add key="PuntoPago-Environment" value="" /&gt;&lt;!--Values: Sandbox or Production--/&gt;
 </pre>
 
 <h2>Log</h2>
@@ -93,9 +95,11 @@ var puntoPagoSdk = new PuntoPago().SetLog(you instance of log);
 </tr>
 </tbody></table>
 
-<h1>TODO:</h1>
-
-* Create Nuget Package
+<h1>TODO</h1>
+<ul>
+<li>Create Nuget Package</li>
+<li>Create Wiki</li>
+</ul>
 
 <h2>Credits</h2>
 
