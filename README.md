@@ -45,7 +45,7 @@ var puntoPagoSdk = new PuntoPago().SetLog(you instance of log);
 
 	var puntoPago = new PuntoPago().CreateTransaction();
 	
-	var createTransactionDto = puntoPago.CreateTransaction(new CreateTransactionRequestDto(100, "123121"));
+	var createTransactionDto = puntoPago.CreateTransaction(new CreateTransactionRequestDto(100, 123121));
 	
 	//Redirect to 
 	createTransactionDto.ProcessUrl
@@ -70,7 +70,7 @@ var puntoPagoSdk = new PuntoPago().SetLog(you instance of log);
 
 	var puntoPago = new PuntoPago().CreateTransaction();
 	//
-	var checkTransactionRequestDto = puntoPago.CheckStatusTransaction(new CheckTransactionRequestDto(100, "Transaction Client Id", "Token of Punto Pago"));
+	var checkTransactionRequestDto = puntoPago.CheckStatusTransaction(new CheckTransactionRequestDto(100, Transaction Client Id, "Token of Punto Pago"));
 	
 	//Returns if the result of transacction.
 	checkTransactionRequestDto.IsTransactionSuccessful();
@@ -106,4 +106,4 @@ Alejandro Labra
 
 <h1>Special Thanks</h1>
 
-Thanks to dvinales for not suing us.
+Thanks to <a href="https://github.com/dvinales">dvinales</a> for not suing us, and <a href="https://github.com/imella">imella</a> for by knowledge.
