@@ -25,10 +25,10 @@ namespace Acid.PuntoPagos.Sdk.Test.Dto
             var transactionResponseDto = new CreateTransactionResponseDto(JsonSerializerService.DeserializeFromString(json), _configuration.Object);
 
             Assert.AreEqual("9XJ08401WN0071839", transactionResponseDto.Token);
-            Assert.AreEqual("9787415132", transactionResponseDto.TransactionId);
+            Assert.AreEqual(9787415132, transactionResponseDto.TransactionId);
             Assert.IsFalse(transactionResponseDto.WithError);
             Assert.IsNull(transactionResponseDto.PaymentMethod);
-            Assert.AreEqual(1000000, transactionResponseDto.Currency.Mount);
+            Assert.AreEqual(1000000, transactionResponseDto.Currency.Amount);
             Assert.IsNullOrEmpty(transactionResponseDto.ErrorMessage);
             Assert.AreEqual("/url/9XJ08401WN0071839", transactionResponseDto.ProcessUrl);
         }
@@ -41,7 +41,7 @@ namespace Acid.PuntoPagos.Sdk.Test.Dto
             var transactionResponseDto = new CreateTransactionResponseDto(JsonSerializerService.DeserializeFromString(json), _configuration.Object);
 
             Assert.AreEqual("9XJ08401WN0071839", transactionResponseDto.Token);
-            Assert.AreEqual("9787415132", transactionResponseDto.TransactionId);
+            Assert.AreEqual(9787415132, transactionResponseDto.TransactionId);
             Assert.IsTrue(transactionResponseDto.WithError);
             Assert.IsNull(transactionResponseDto.PaymentMethod);
             Assert.IsNull(transactionResponseDto.Currency);

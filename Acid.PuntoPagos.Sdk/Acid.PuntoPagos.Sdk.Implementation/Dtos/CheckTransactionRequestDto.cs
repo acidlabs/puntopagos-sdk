@@ -5,7 +5,7 @@
         /// <summary>
         /// Unique identifier of the client's transaction
         /// </summary>
-        public string Id { get; private set; }
+        public ulong TransactionId { get; private set; }
         /// <summary>
         /// Total value of the transaction
         /// </summary>
@@ -18,13 +18,13 @@
         /// <summary>
         /// Create new object for check the result of transacction process
         /// </summary>
-        /// <param name="mount">Total value of the transaction</param>
+        /// <param name="amount">Total value of the transaction</param>
         /// <param name="transactionId">Unique identifier of the client's transaction</param>
         /// <param name="token">Unique identifier of the transaction Payment Point</param>
-        public CheckTransactionRequestDto(decimal mount, string transactionId, string token)
+        public CheckTransactionRequestDto(decimal amount, ulong transactionId, string token)
         {
-            Id = transactionId;
-            Currency = new CurrencyDto(mount);
+            TransactionId = transactionId;
+            Currency = new CurrencyDto(amount);
             Token = token;
         } 
     }

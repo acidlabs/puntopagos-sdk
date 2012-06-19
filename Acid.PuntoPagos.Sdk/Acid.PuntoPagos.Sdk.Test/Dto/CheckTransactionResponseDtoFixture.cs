@@ -18,9 +18,9 @@ namespace Acid.PuntoPagos.Sdk.Test.Dto
 
             Assert.IsFalse(checkTransactionDto.WithError, "WithError");
             Assert.AreEqual(checkTransactionDto.Token, "9XJ08401WN0071839", "Token");
-            Assert.AreEqual(checkTransactionDto.TransactionId, "9787415132", "TransactionId");
+            Assert.AreEqual(checkTransactionDto.TransactionId, 9787415132, "TransactionId");
             Assert.IsNull(checkTransactionDto.PaymentMethod, "PaymentMethod");
-            Assert.AreEqual(checkTransactionDto.Currency.Mount, 1000000, "Mount");
+            Assert.AreEqual(checkTransactionDto.Currency.Amount, 1000000, "Amount");
             Assert.AreEqual(checkTransactionDto.DateTimeAcceptance, new DateTime(2009, 6, 15, 20, 49, 00), "DateTimeAcceptance");
             Assert.AreEqual(checkTransactionDto.OperationNumber, "7897851487", "OperationNumber");
             Assert.AreEqual(checkTransactionDto.AuthorizationCode, "34581", "AuthorizationCode");

@@ -43,10 +43,10 @@ namespace Acid.PuntoPagos.Sdk.Test
                                                                  {"token", "9XJ08401WN0071839"},
                                                                  {"trx_id", "9787415132"}
                                                              });
-            var transactionResponseDto = CreateTransaction().CreateTransaction(new CreateTransactionRequestDto(100, "123121"));
+            var transactionResponseDto = CreateTransaction().CreateTransaction(new CreateTransactionRequestDto(100, 123121));
 
             Assert.AreEqual("9XJ08401WN0071839", transactionResponseDto.Token);
-            Assert.AreEqual("9787415132", transactionResponseDto.TransactionId);
+            Assert.AreEqual(9787415132, transactionResponseDto.TransactionId);
         }
         
     }

@@ -4,11 +4,11 @@ namespace Acid.PuntoPagos.Sdk.Dtos
 {
     public class CurrencyDto
     {
-        public decimal Mount { get; set; }
+        public decimal Amount { get; set; }
 
         public override string ToString()
         {
-            return Mount.ToString("0.00", GetNumberformat());
+            return Amount.ToString("0.00", GetNumberformat());
         }
         private static NumberFormatInfo GetNumberformat()
         {
@@ -19,14 +19,14 @@ namespace Acid.PuntoPagos.Sdk.Dtos
                        };
         }
 
-        public CurrencyDto(decimal mount)
+        public CurrencyDto(decimal amount)
         {
-            Mount = mount;
+            Amount = amount;
         }
 
-        public CurrencyDto(string mount)
+        public CurrencyDto(string amount)
         {
-            Mount = decimal.Parse(mount, GetNumberformat());
+            Amount = decimal.Parse(amount, GetNumberformat());
         }
     }
 }

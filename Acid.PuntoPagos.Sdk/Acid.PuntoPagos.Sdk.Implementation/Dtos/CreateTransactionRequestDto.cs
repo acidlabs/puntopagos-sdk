@@ -7,7 +7,7 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         /// <summary>
         /// Unique identifier of the client's transaction
         /// </summary>
-        public string Id { get; set; }
+        public ulong TransactionId { get; set; }
         /// <summary>
         /// Total value of the transaction
         /// </summary>
@@ -20,8 +20,8 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         public string GetJson()
         {
             var json = string.Format("\"monto\":{0},", Currency);
-            if (!string.IsNullOrEmpty(Id))
-                json += string.Format("\"trx_id\":{0},", Id);
+            if (TransactionId != ulong.MinValue)
+                json += string.Format("\"trx_id\":{0},", TransactionId);
             if (PaymentMethod.HasValue)
                 json += string.Format("\"medio_pago\":\"{0}\"", ((int) PaymentMethod.Value).ToString("000", CultureInfo.InvariantCulture));
 
@@ -30,12 +30,12 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         /// <summary>
         /// Create a new object for create process for payment.
         /// </summary>
-        /// <param name="mount">Total value of the transaction</param>
+        /// <param name="amount">Total value of the transaction</param>
         /// <param name="transactionId">Unique identifier of the client's transaction</param>
-        public CreateTransactionRequestDto(decimal mount, string transactionId)
+        public CreateTransactionRequestDto(decimal amount, ulong transactionId)
         {
-            Id = transactionId;
-            Currency = new CurrencyDto(mount);
+            TransactionId = transactionId;
+            Currency = new CurrencyDto(amount);
         }
     }
 }

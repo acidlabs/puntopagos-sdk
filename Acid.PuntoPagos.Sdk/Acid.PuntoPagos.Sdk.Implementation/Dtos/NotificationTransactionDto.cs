@@ -13,7 +13,7 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         /// <summary>
         /// Unique identifier of the client's transaction
         /// </summary>
-        public string TransactionId { get; private set; }
+        public ulong TransactionId { get; private set; }
         /// <summary>
         /// Total value of the transaction
         /// </summary>
@@ -41,7 +41,7 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         /// <summary>
         /// Value of each Share
         /// </summary>
-        public CurrencyDto SharesMount { get; private set; }
+        public CurrencyDto SharesAmount { get; private set; }
         /// <summary>
         /// Date of firts expiration
         /// </summary>
@@ -84,7 +84,7 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         public NotificationTransactionDto(IDictionary<string, string> getDataFromRequest)
         {
             if (getDataFromRequest.ContainsKey("trx_id"))
-                TransactionId = getDataFromRequest["trx_id"];
+                TransactionId = Convert.ToUInt64(getDataFromRequest["trx_id"]);
             if (getDataFromRequest.ContainsKey("token"))
                 Token = getDataFromRequest["token"];
             if (getDataFromRequest.ContainsKey("monto"))
@@ -105,7 +105,7 @@ namespace Acid.PuntoPagos.Sdk.Dtos
             if (getDataFromRequest.ContainsKey("tipo_cuotas"))
                 SharesType = getDataFromRequest["tipo_cuotas"];
             if (getDataFromRequest.ContainsKey("valor_cuota"))
-                SharesMount = new CurrencyDto(getDataFromRequest["valor_cuota"]);
+                SharesAmount = new CurrencyDto(getDataFromRequest["valor_cuota"]);
             if (getDataFromRequest.ContainsKey("primer_vencimiento"))
                 FirtsExpiration = DateTime.Parse(getDataFromRequest["primer_vencimiento"]);
             if (getDataFromRequest.ContainsKey("numero_operacion"))

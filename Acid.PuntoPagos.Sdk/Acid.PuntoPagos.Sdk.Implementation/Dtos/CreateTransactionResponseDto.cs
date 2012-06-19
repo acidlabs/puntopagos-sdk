@@ -14,7 +14,7 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         /// <summary>
         /// Unique identifier of the client's transaction
         /// </summary>
-        public string TransactionId { get; private set; }
+        public ulong TransactionId { get; private set; }
         /// <summary>
         /// Indicate the cause of transaction was not satisfactory
         /// </summary>
@@ -39,7 +39,7 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         public CreateTransactionResponseDto(IDictionary<string,string> values, IConfiguration configuration)
         {
             if (values.ContainsKey("trx_id"))
-                TransactionId = values["trx_id"];
+                TransactionId = Convert.ToUInt64(values["trx_id"]);
             if (values.ContainsKey("token"))
                 Token = values["token"];
             if (values.ContainsKey("respuesta"))

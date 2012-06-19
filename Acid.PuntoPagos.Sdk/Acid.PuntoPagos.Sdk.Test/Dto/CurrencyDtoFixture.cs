@@ -15,7 +15,7 @@ namespace Acid.PuntoPagos.Sdk.Test.Dto
             Assert.AreEqual("123.23", currency.ToString());
         }
         [Test]
-        public void given_currency_when_call_to_string_get_mount_with_two_decimal()
+        public void given_currency_when_call_to_string_get_amount_with_two_decimal()
         {
             var currency = new CurrencyDto(10000.23256m);
 

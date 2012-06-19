@@ -26,10 +26,10 @@ namespace Acid.PuntoPagos.Sdk
         /// <returns>CreateTransactionResponseDto with contains the Token and Url for the payment process</returns>
         public CreateTransactionResponseDto CreateTransaction(CreateTransactionRequestDto transactionDto)
         {
-            _logger.Debug(string.Format("Call to Create Transaction for TransactionId: {0}, and mount: {1}", transactionDto.Id, transactionDto.Currency));
+            _logger.Debug(string.Format("Call to Create Transaction for TransactionId: {0}, and amount: {1}", transactionDto.TransactionId, transactionDto.Currency));
             var dateNow = DateTime.UtcNow;
             var message = string.Format("{0}{1}{2}{1}{3}{1}{4}", _configuration.GetCreateTransactionFunction(), "\n",
-                                        transactionDto.Id, transactionDto.Currency, dateNow.ToString("r"));
+                                        transactionDto.TransactionId, transactionDto.Currency, dateNow.ToString("r"));
             _logger.Debug(string.Format("Generate message {0}, for PuntoPago", message));
             
             var authorization = _authorization.GetAuthorizationHeader(message);
@@ -69,10 +69,10 @@ namespace Acid.PuntoPagos.Sdk
             _logger.Debug(string.Format("End read data from Request, for Token {0} and TransactionId {1}",
                                         notificationTransactionDto.Token, notificationTransactionDto.TransactionId));
 
-            if (string.IsNullOrEmpty(notificationTransactionDto.Token) || string.IsNullOrEmpty(notificationTransactionDto.TransactionId) || notificationTransactionDto.Currency == null)
+            if (string.IsNullOrEmpty(notificationTransactionDto.Token) || notificationTransactionDto.TransactionId == ulong.MinValue || notificationTransactionDto.Currency == null)
             {
-                var error = new ArgumentNullException("token, transactionId, mount", "Some of the following variables do not exist or is empty");
-                _logger.Error("Some of the following variables (token, transactionId, mount) do not exist or is empty", error);
+                var error = new ArgumentNullException("token, transactionId, amount", "Some of the following variables do not exist or is empty");
+                _logger.Error("Some of the following variables (token, transactionId, amount) do not exist or is empty", error);
                 throw error;
             }
 
@@ -93,14 +93,14 @@ namespace Acid.PuntoPagos.Sdk
         /// <summary>
         /// Verify if the result of payment process was successful or not in any time.
         /// </summary>
-        /// <param name="checkTransaction">To query data, necessitating the token, transaction client id and mount.</param>
+        /// <param name="checkTransaction">To query data, necessitating the token, transaction client id and amount.</param>
         /// <returns>CheckTransactionResponseDto with contains result of the process and data of the payment</returns>
         public CheckTransactionResponseDto CheckStatusTransaction(CheckTransactionRequestDto checkTransaction)
         {
             _logger.Debug("Start CheckStatusTransaction");
             var dateNow = DateTime.UtcNow;
             var message = string.Format("{0}{1}{2}{1}{3}{1}{4}{5}", _configuration.GetCheckTransactionFunction(), "\n",
-                                        checkTransaction.Token, checkTransaction.Id, checkTransaction.Currency,
+                                        checkTransaction.Token, checkTransaction.TransactionId, checkTransaction.Currency,
                                         dateNow.ToString("r"));
             _logger.Debug(string.Format("Generate message for check notification transaction: {0}", message));
         
