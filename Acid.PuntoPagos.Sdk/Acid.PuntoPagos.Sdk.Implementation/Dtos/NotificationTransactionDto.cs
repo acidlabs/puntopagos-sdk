@@ -31,17 +31,17 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         /// </summary>
         public string CardNumber { get; private set; }
         /// <summary>
-        /// Number of shares
+        /// Number of Instalment
         /// </summary>
-        public string SharesNumber { get; private set; }
+        public string InstalmentNumber { get; private set; }
         /// <summary>
-        /// Type of Share
+        /// Type of Instalment
         /// </summary>
-        public string SharesType { get; private set; }
+        public string InstalmentType { get; private set; }
         /// <summary>
-        /// Value of each Share
+        /// Value of each Instalment
         /// </summary>
-        public CurrencyDto SharesAmount { get; private set; }
+        public CurrencyDto InstalmentAmount { get; private set; }
         /// <summary>
         /// Date of firts expiration
         /// </summary>
@@ -101,11 +101,11 @@ namespace Acid.PuntoPagos.Sdk.Dtos
             if (getDataFromRequest.ContainsKey("CardNumber"))
                 CardNumber = getDataFromRequest["CardNumber"];
             if (getDataFromRequest.ContainsKey("num_cuotas"))
-                SharesNumber = getDataFromRequest["num_cuotas"];
+                InstalmentNumber = getDataFromRequest["num_cuotas"];
             if (getDataFromRequest.ContainsKey("tipo_cuotas"))
-                SharesType = getDataFromRequest["tipo_cuotas"];
+                InstalmentType = getDataFromRequest["tipo_cuotas"];
             if (getDataFromRequest.ContainsKey("valor_cuota"))
-                SharesAmount = new CurrencyDto(getDataFromRequest["valor_cuota"]);
+                InstalmentAmount = new CurrencyDto(getDataFromRequest["valor_cuota"]);
             if (getDataFromRequest.ContainsKey("primer_vencimiento"))
                 FirtsExpiration = DateTime.Parse(getDataFromRequest["primer_vencimiento"]);
             if (getDataFromRequest.ContainsKey("numero_operacion"))
