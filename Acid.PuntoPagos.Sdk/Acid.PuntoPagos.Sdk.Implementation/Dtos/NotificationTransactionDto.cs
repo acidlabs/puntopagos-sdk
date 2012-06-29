@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 
 namespace Acid.PuntoPagos.Sdk.Dtos
@@ -10,50 +11,62 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         /// Unique identifier of the transaction Payment Point
         /// </summary>
         public string Token { get; private set; }
+
         /// <summary>
         /// Unique identifier of the client's transaction
         /// </summary>
         public ulong TransactionId { get; private set; }
+
         /// <summary>
         /// Total value of the transaction
         /// </summary>
         public CurrencyDto Currency { get; private set; }
+
         /// <summary>
         /// Identifier of the payment method
         /// </summary>
         public PaymentMethod? PaymentMethod { get; private set; }
+
         /// <summary>
         /// Date of approval of the transaction
         /// </summary>
         public DateTime DateTimeAcceptance { get; private set; }
+
         /// <summary>
         /// Last 4 digits of the credit card
         /// </summary>
         public string CardNumber { get; private set; }
+
         /// <summary>
         /// Number of Instalment
         /// </summary>
         public string InstalmentNumber { get; private set; }
+
         /// <summary>
         /// Type of Instalment
         /// </summary>
         public string InstalmentType { get; private set; }
+
         /// <summary>
         /// Value of each Instalment
         /// </summary>
         public CurrencyDto InstalmentAmount { get; private set; }
+
         /// <summary>
         /// Date of firts expiration
         /// </summary>
         public DateTime? FirtsExpiration { get; private set; }
+
         /// <summary>
         /// Number of operation at the financial institution
         /// </summary>
         public string OperationNumber { get; private set; }
+
         /// <summary>
         /// Authorization code of the transaction
         /// </summary>
         public string AuthorizationCode { get; private set; }
+
         /// <summary>
         /// Indicates whether the transaction was not satisfactory
         /// </summary>
@@ -79,6 +92,41 @@ namespace Acid.PuntoPagos.Sdk.Dtos
         public bool IsTransactionSuccessful()
         {
             return !WithError;
+        }
+
+        public NotificationTransactionDto(NameValueCollection getDataFromRequest)
+        {
+            if (getDataFromRequest["trx_id"] != null)
+                TransactionId = Convert.ToUInt64(getDataFromRequest["trx_id"]);
+            if (getDataFromRequest["token"]!=null)
+                Token = getDataFromRequest["token"];
+            if (getDataFromRequest["monto"] != null)
+                Currency = new CurrencyDto(getDataFromRequest["monto"]);
+            if (getDataFromRequest["medio_pago"] != null)
+                PaymentMethod = getDataFromRequest["medio_pago"] == "999"
+                                    ? null
+                                    : (PaymentMethod?)
+                                      Enum.Parse(typeof(PaymentMethod),
+                                                 int.Parse(getDataFromRequest["medio_pago"]).ToString(
+                                                     CultureInfo.InvariantCulture));
+            if (getDataFromRequest["fecha_aprobacion"] != null)
+                DateTimeAcceptance = DateTime.Parse(getDataFromRequest["fecha_aprobacion"]);
+            if (getDataFromRequest["CardNumber"] != null)
+                CardNumber = getDataFromRequest["CardNumber"];
+            if (getDataFromRequest["num_cuotas"] != null)
+                InstalmentNumber = getDataFromRequest["num_cuotas"];
+            if (getDataFromRequest["tipo_cuotas"] != null)
+                InstalmentType = getDataFromRequest["tipo_cuotas"];
+            if (getDataFromRequest["valor_cuota"] != null)
+                InstalmentAmount = new CurrencyDto(getDataFromRequest["valor_cuota"]);
+            if (getDataFromRequest["primer_vencimiento"] != null)
+                FirtsExpiration = DateTime.Parse(getDataFromRequest["primer_vencimiento"]);
+            if (getDataFromRequest["numero_operacion"] != null)
+                OperationNumber = getDataFromRequest["numero_operacion"];
+            if (getDataFromRequest["codigo_autorizacion"] != null)
+                AuthorizationCode = getDataFromRequest["codigo_autorizacion"];
+            if (getDataFromRequest["respuesta"] != null)
+                WithError = getDataFromRequest["respuesta"] != "00";
         }
 
         public NotificationTransactionDto(IDictionary<string, string> getDataFromRequest)

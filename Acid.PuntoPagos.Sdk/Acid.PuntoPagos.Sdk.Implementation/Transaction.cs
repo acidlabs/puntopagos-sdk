@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Net;
 using Acid.PuntoPagos.Sdk.Dtos;
 using Acid.PuntoPagos.Sdk.Interfaces;
 
 namespace Acid.PuntoPagos.Sdk
 {
+    /// <summary>
+    /// Class defining communications puntopagos
+    /// </summary>
     public class Transaction
     {
         private readonly IConfiguration _configuration;
@@ -12,6 +16,13 @@ namespace Acid.PuntoPagos.Sdk
         private readonly IExecutorWeb _webExecute;
         private readonly ILog _logger;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="authorization"></param>
+        /// <param name="webExecute"></param>
+        /// <param name="logger"></param>
         public Transaction(IConfiguration configuration, IAuthorization authorization, IExecutorWeb webExecute, ILog logger)
         {
             _configuration = configuration;
@@ -48,24 +59,62 @@ namespace Acid.PuntoPagos.Sdk
         /// <param name="request">The request from Punto Pagos to the end point previously established for the notification</param>
         /// <returns>NotificationTransactionDto with contains result of the process and data of the payment</returns>
         /// <exception cref="ArgumentNullException">Can throw the exception if there headers "fecha" or "Autorizacion", or if the request does not contain the variables "token", "trx_id" or "monto"</exception>
+        [Obsolete("Use new version with NameValueCollection for headers and parameters")]
         public NotificationTransactionDto NotificationTransaction(WebRequest request)
         {
+            var @params = new NameValueCollection();
+            var requestParameters = _webExecute.GetDataFromRequest(request);
+            if (requestParameters == null)
+            {
+                var error = new ArgumentNullException("request", "The request not contains data");
+                _logger.Error("The request not contains header 'fecha'", error);
+                throw error;
+            }
+            
+            foreach (var data in requestParameters)
+            {
+                @params.Add(data.Key, data.Value);
+            }
+            return NotificationTransaction(request.Headers, @params);
+        }
+
+        /// <summary>
+        /// Verify if the result of payment process was successful or not.
+        /// </summary>
+        /// <param name="headers">Headers of Request</param>
+        /// <param name="params">Parameters of Request</param>
+        /// <returns>NotificationTransactionDto with contains result of the process and data of the payment</returns>
+        /// <exception cref="ArgumentNullException">Can throw the exception if there headers "fecha" or "Autorizacion", or if the request does not contain the variables "token", "trx_id" or "monto"</exception>
+        public NotificationTransactionDto NotificationTransaction(NameValueCollection headers, NameValueCollection @params)
+        {
             _logger.Debug("Start NotificationTransaction");
-            if (request.Headers["fecha"] == null)
+            if (headers == null)
+            {
+                var error = new ArgumentNullException("headers", "The headers are null");
+                _logger.Error("The headers are null", error);
+                throw error;
+            }
+            if(@params == null)
+            {
+                var error = new ArgumentNullException("params", "The @params is null");
+                _logger.Error("The @params are null", error);
+                throw error;
+            }
+            if (headers["fecha"] == null)
             {
                 var error = new ArgumentNullException("fecha", "The request not contains header 'fecha'");
                 _logger.Error("The request not contains header 'fecha'", error);
                 throw error;
             }
-            if (request.Headers["Autorizacion"] == null)
+            if (headers["Autorizacion"] == null)
             {
                 var error = new ArgumentNullException("Autorizacion", "The request not contains header 'Autorizacion'");
                 _logger.Error("The request not contains header 'Autorizacion'", error);
                 throw error;
             }
 
-            var dateTime = request.Headers.Get("Fecha");
-            var notificationTransactionDto = new NotificationTransactionDto(_webExecute.GetDataFromRequest(request));
+            var dateTime = headers.Get("Fecha");
+            var notificationTransactionDto = new NotificationTransactionDto(@params);
             _logger.Debug(string.Format("End read data from Request, for Token {0} and TransactionId {1}",
                                         notificationTransactionDto.Token, notificationTransactionDto.TransactionId));
 
@@ -79,8 +128,8 @@ namespace Acid.PuntoPagos.Sdk
             var message = string.Format("{0}{1}{2}{1}{3}{1}{4}{1}{5}", _configuration.GetNotificationTransactionFunction(), "\n",
                                         notificationTransactionDto.Token, notificationTransactionDto.TransactionId, notificationTransactionDto.Currency, dateTime);
             _logger.Debug(string.Format("Generate message for verificate notification transaction: {0}", message));
-            
-            notificationTransactionDto.WithError = _authorization.GetAuthorizationHeader(message) != request.Headers.Get("Autorizacion");
+
+            notificationTransactionDto.WithError = _authorization.GetAuthorizationHeader(message) != headers.Get("Autorizacion");
             _logger.Info(string.Format("The transaction with token {0} and TransactionId {1}, was {2}",
                                        notificationTransactionDto.Token, notificationTransactionDto.TransactionId,
                                        notificationTransactionDto.IsTransactionSuccessful()
@@ -90,6 +139,7 @@ namespace Acid.PuntoPagos.Sdk
             _logger.Debug("End NotificationTransaction");
             return notificationTransactionDto;
         }
+
         /// <summary>
         /// Verify if the result of payment process was successful or not in any time.
         /// </summary>

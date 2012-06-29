@@ -14,11 +14,19 @@ namespace Acid.PuntoPagos.Sdk
         private readonly Configuration _configuration;
         private ILog _logger;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public PuntoPago()
         {
             _configuration = new Configuration();
         }
 
+        /// <summary>
+        /// Set the logger.
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <returns></returns>
         public PuntoPago SetLog(ILog logger)
         {
             _logger = logger;
@@ -26,7 +34,8 @@ namespace Acid.PuntoPagos.Sdk
         }
 
         /// <summary>
-        /// Set the Client Key of Punto Pagos
+        /// Set the Client Key of Punto Pagos.
+        /// By default this sdk use log4net with name "PuntoPagos-sdk"
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>

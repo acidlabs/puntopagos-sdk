@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Net;
 using Acid.PuntoPagos.Sdk.Interfaces;
 using Moq;
@@ -111,6 +112,46 @@ namespace Acid.PuntoPagos.Sdk.Test
                                                                  {"trx_id", "9787415132"}
                                                              });
             var notificationTransactionDto = CreateTransaction().NotificationTransaction(httpRequest);
+
+            Assert.IsFalse(notificationTransactionDto.WithError);
+            Assert.IsTrue(notificationTransactionDto.IsTransactionSuccessful());
+            Assert.AreEqual("{\"respuesta\":\"00\",\"token\":\"9XJ08401WN0071839\"}", notificationTransactionDto.GenerateResponse());
+        }
+
+        [Test, ExpectedException(typeof(ArgumentNullException))]
+        public void when_call_notification_with_null_headers_then_throw_argument_exception()
+        {
+            CreateTransaction().NotificationTransaction(null, new NameValueCollection());
+        }
+
+        [Test, ExpectedException(typeof(ArgumentNullException))]
+        public void when_call_notification_with_null_params_then_throw_argument_exception()
+        {
+            CreateTransaction().NotificationTransaction(new NameValueCollection(), null);
+        }
+
+        [Test]
+        public void given_correct_variable_when_call_notification_transaction_then_return_dto()
+        {
+            _authorization.Setup(x => x.GetAuthorizationHeader(It.IsAny<string>())).Returns("PP 0PN5J17HBGZHT7ZZ3X82:fU6+JLYWzOSGuo76XJzT/Z596Qg=");
+            var header = new NameValueCollection
+                             {
+                                 {"fecha", "Thu, 14 Jun 2012 16:56:25 GMT"},
+                                 {"Autorizacion", "PP 0PN5J17HBGZHT7ZZ3X82:fU6+JLYWzOSGuo76XJzT/Z596Qg="}
+                             };
+            var @params = new NameValueCollection
+                              {
+                                  {"respuesta", "00"},
+                                  {"medio_pago", "999"},
+                                  {"monto", "1000000.00"},
+                                  {"fecha_aprobacion", "2009-06-15T20:49:00"},
+                                  {"numero_operacion", "7897851487"},
+                                  {"codigo_autorizacion", "34581"},
+                                  {"token", "9XJ08401WN0071839"},
+                                  {"trx_id", "9787415132"}
+                              };
+
+            var notificationTransactionDto = CreateTransaction().NotificationTransaction(header, @params);
 
             Assert.IsFalse(notificationTransactionDto.WithError);
             Assert.IsTrue(notificationTransactionDto.IsTransactionSuccessful());
